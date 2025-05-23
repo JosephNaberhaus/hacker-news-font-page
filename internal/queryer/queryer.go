@@ -1,6 +1,7 @@
 package queryer
 
 import (
+	"context"
 	"fmt"
 	"math/rand/v2"
 	"time"
@@ -14,7 +15,7 @@ type Queryer struct {
 	lastQuery time.Time
 }
 
-func (q *Queryer) GetTitles(year, month, day int) ([30]string, error) {
+func (q *Queryer) GetTitles(ctx context.Context, year, month, day int) ([30]string, error) {
 	// See if we should wait a bit before our next call.
 	durSinceLastCall := time.Since(q.lastQuery)
 	wait := q.generateWait()
@@ -22,12 +23,19 @@ func (q *Queryer) GetTitles(year, month, day int) ([30]string, error) {
 		remainingWait := time.Duration(wait-durSinceLastCall.Milliseconds()) * time.Millisecond
 		fmt.Printf("Waiting %d...\n", remainingWait.Milliseconds())
 		time.Sleep(remainingWait)
+
+		select {
+		case <-ctx.Done():
+			return [30]string{}, ctx.Err()
+		case <-time.NewTimer(remainingWait).C:
+			// Do the request.
+		}
 	}
 	q.lastQuery = time.Now()
 
 	fmt.Printf("Querying for %d %d %d\n", year, month, day)
 
-	page, err := hackernews.LoadPage(year, month, day)
+	page, err := hackernews.LoadPage(ctx, year, month, day)
 	if err != nil {
 		return [30]string{}, err
 	}

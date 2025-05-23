@@ -1,6 +1,7 @@
 package dataset
 
 import (
+	"context"
 	"encoding/csv"
 	"errors"
 	"fmt"
@@ -64,14 +65,14 @@ func New(filename string) (Dataset, error) {
 	}, nil
 }
 
-func (d Dataset) AddMissingEntries(startTime, endTime time.Time, q Queryer) error {
+func (d Dataset) AddMissingEntries(ctx context.Context, startTime, endTime time.Time, q Queryer) error {
 	start := newEntryDateFromTime(startTime)
 	end := newEntryDateFromTime(endTime)
 
 	cur := start
 	for cur.Compare(end) <= 0 {
 		if _, ok := d.entries[cur]; !ok {
-			titles, err := q.GetTitles(cur.Year, cur.Month, cur.Day)
+			titles, err := q.GetTitles(ctx, cur.Year, cur.Month, cur.Day)
 			if err != nil {
 				return err
 			}

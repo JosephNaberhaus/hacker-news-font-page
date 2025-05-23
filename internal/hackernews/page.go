@@ -2,6 +2,7 @@ package hackernews
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"io"
 	"net/http"
@@ -14,12 +15,13 @@ type Page struct {
 	bodyBytes []byte
 }
 
-func LoadPage(year, month, day int) (Page, error) {
+func LoadPage(ctx context.Context, year, month, day int) (Page, error) {
 	url := getPageURL(year, month, day)
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
 		return Page{}, fmt.Errorf("failed to create request for page at %s: %w", url, err)
 	}
+	req = req.WithContext(ctx)
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {

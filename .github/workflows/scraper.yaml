@@ -20,6 +20,6 @@ jobs:
       - name: Run Scraper
         run: go run .
       - name: Push changes
-        uses: JosephNaberhaus/actions/commit-and-push@add-commit-and-push
+        uses: JosephNaberhaus/actions/commit-and-push@v1.3.0
         with:
           message: Update dataset

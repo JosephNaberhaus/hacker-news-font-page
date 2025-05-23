@@ -3,9 +3,10 @@ package hackernews
 import (
 	"bytes"
 	"fmt"
-	"github.com/antchfx/htmlquery"
 	"io"
 	"net/http"
+
+	"github.com/antchfx/htmlquery"
 )
 
 type Page struct {

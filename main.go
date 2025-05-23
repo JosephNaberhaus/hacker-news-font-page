@@ -3,10 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/JosephNaberhaus/hacker-news-font-page/internal/dataset"
-	"github.com/JosephNaberhaus/hacker-news-font-page/internal/queryer"
 	"os"
 	"time"
+
+	"github.com/JosephNaberhaus/hacker-news-font-page/internal/dataset"
+	"github.com/JosephNaberhaus/hacker-news-font-page/internal/queryer"
 )
 
 var (

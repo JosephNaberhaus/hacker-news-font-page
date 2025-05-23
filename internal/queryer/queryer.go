@@ -2,9 +2,10 @@ package queryer
 
 import (
 	"fmt"
-	"github.com/JosephNaberhaus/hacker-news-font-page/internal/hackernews"
 	"math/rand/v2"
 	"time"
+
+	"github.com/JosephNaberhaus/hacker-news-font-page/internal/hackernews"
 )
 
 type Queryer struct {

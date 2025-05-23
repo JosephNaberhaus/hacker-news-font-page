@@ -1,0 +1,21 @@
+name: Scraper
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  run-scaper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
+      - name: Run Scraper
+        run: go run .
+      - name: Push changes
+        uses: JosephNaberhaus/actions/commit-and-push@add-commit-and-push
+        with:
+          message: Update dataset

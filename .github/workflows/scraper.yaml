@@ -19,7 +19,7 @@ jobs:
           go-version: 'stable'
       - name: Run Scraper
         # Only run for an hour at a time. Otherwise, GitHub will kill the job.
-        run: go run . -duration 10
+        run: go run . -duration 3600
       - name: Push changes
         uses: JosephNaberhaus/actions/commit-and-push@v1.3.0
         with:

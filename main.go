@@ -5,7 +5,6 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"math"
 	"os"
 	"time"
 
@@ -16,7 +15,7 @@ import (
 var (
 	output    = flag.String("output", "titles.csv", "Output file. If this file already exists then the existing data will be re-used.")
 	startYear = flag.Int("startYear", 2010, "The year to start querying data from.")
-	duration  = flag.Int("duration", math.MaxInt, "How many seconds to run the program before stopping.")
+	duration  = flag.Int("duration", 60, "How many seconds to run the program before stopping.")
 )
 
 func main() {

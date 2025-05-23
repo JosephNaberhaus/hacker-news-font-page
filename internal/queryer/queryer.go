@@ -22,8 +22,8 @@ func (q *Queryer) GetTitles(ctx context.Context, year, month, day int) ([30]stri
 	if durSinceLastCall.Milliseconds() < wait {
 		remainingWait := time.Duration(wait-durSinceLastCall.Milliseconds()) * time.Millisecond
 		fmt.Printf("Waiting %d...\n", remainingWait.Milliseconds())
-		time.Sleep(remainingWait)
 
+		// The context might be cancelled while we're waiting.
 		select {
 		case <-ctx.Done():
 			return [30]string{}, ctx.Err()

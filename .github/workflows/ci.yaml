@@ -15,4 +15,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Check formatting
-        uses: JosephNaberhaus/actions/go-check-formatting@v1.2.0
+        uses: JosephNaberhaus/actions/go-check-formatting@v1.3.0

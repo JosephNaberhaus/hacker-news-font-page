@@ -53,6 +53,12 @@ func (p Page) ParseTitles() ([30]string, error) {
 		return [30]string{}, fmt.Errorf("error querying paeg for titles %s: %w", p.url, err)
 	}
 
+	// There some days when the Hacker News Front page is empty. Not sure why, but let's just return empty results
+	// for them.
+	if len(titles) == 0 {
+		return [30]string{}, nil
+	}
+
 	if len(titles) != 30 {
 		return [30]string{}, fmt.Errorf("unexpected number of titles %s: %d", p.url, len(titles))
 	}
